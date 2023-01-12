@@ -15,12 +15,13 @@ class UserTest {
         User user = new User();
 
         // when
-        user.initPassword(new CorrectFixedPasswordGenerator());
+        user.initPassword(() -> "abcdefgh");
         // new CorrectFixedPasswordGenerator를 주입해주는 것
 
         // then
         assertThat(user.getPassword()).isNotNull();
     }
+    // 테스트 코드에서 검증하기 위해서 CorrectFixedPasswordGenerator 사용
     @DisplayName("패스워드가 요구사항에 부합되지 않아 초기화가 되지 않는다.")
     @Test
     void passwordTest2() {
@@ -28,7 +29,7 @@ class UserTest {
         User user = new User();
 
         // when
-        user.initPassword(new WrongFixedPasswordGenerator());
+        user.initPassword(() -> "ab");
 
         // then
         assertThat(user.getPassword()).isNull();
